@@ -5,13 +5,13 @@ using TMPro;
 public class MenuItem : MonoBehaviour
 {
     [SerializeField] private Image foodSprite;
-    private CookingUI cookingUI;
+    private PreCookingUI cookingUI;
     private FoodRecipe currentRecipe;
     private float menuOffset = 300;
     private TextMeshProUGUI itemName;
     [SerializeField] private TextMeshProUGUI price;
 
-    public void SetupMenuItem(CookingUI _cookingUI, FoodRecipe recipe, Transform startPos, int offset)
+    public void SetupMenuItem(PreCookingUI _cookingUI, FoodRecipe recipe, Transform startPos, int offset)
     {
         cookingUI = _cookingUI;
         foodSprite.sprite = recipe.icon;

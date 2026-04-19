@@ -3,5 +3,5 @@ using System;
 
 public static class GameEvents
 {
-    public static Action<Machine> OnMachineSelected;
+    public static Action<Machine> OnMachineTapped;
 }

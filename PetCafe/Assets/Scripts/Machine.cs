@@ -6,13 +6,14 @@ public class Machine : MonoBehaviour
     private bool isCooking = false;
     public Categories.CookingCategory categoryCanCook;
     private bool machineOccupied = false;
-    private float cookingStartTime;
+    private float cookingStartTime = -1;
 
     private FoodRecipe foodBeingCooked;
     [SerializeField] private float maxWidth = 1.5f;
     [SerializeField] private float maxHeight = 1.0f;
     [SerializeField] private SpriteRenderer foodSprite;
 
+    private Coroutine cookingCoroutine;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -27,9 +28,19 @@ public class Machine : MonoBehaviour
 
     public void Interact()
     {
-        if (!isCooking)
+        GameEvents.OnMachineTapped?.Invoke(this);
+
+        if (isCooking)
         {
-            GameEvents.OnMachineSelected?.Invoke(this);
+            UIManager.Instance.OpenMidCookingMenu(this);
+        }
+        else if (!machineOccupied)
+        {
+            UIManager.Instance.OpenRecipeMenu(this);
+        }
+        else
+        {
+            UIManager.Instance.OpenPostCookingMenu(this);
         }
     }
 
@@ -38,21 +49,19 @@ public class Machine : MonoBehaviour
         isCooking = true;
         machineOccupied = true;
 
-        StartCoroutine(Cooking(recipe));
+        cookingCoroutine = StartCoroutine(Cooking(recipe));
         cookingStartTime = Time.time;
     }
 
     private IEnumerator Cooking(FoodRecipe recipe)
     {
+        foodBeingCooked = recipe;
         foodSprite.sprite = recipe.cookingSprite;
         FitSpriteToContainer(foodSprite);
 
         yield return new WaitForSecondsRealtime(recipe.cookTime);
 
-        foodSprite.sprite = recipe.cookedSprite;
-        FitSpriteToContainer(foodSprite);
-
-        isCooking = false;
+        FinishCookingFood();
     }
 
     void FitSpriteToContainer(SpriteRenderer sr)
@@ -74,10 +83,26 @@ public class Machine : MonoBehaviour
         sr.transform.localScale = new Vector3(scale, scale, 1f);
     }
 
-    private void RemoveFood()
+    public void FinishCookingFood()
+    {
+        if (cookingCoroutine != null)
+        {
+            StopCoroutine(cookingCoroutine);
+            cookingCoroutine = null;
+        }
+
+        foodSprite.sprite = foodBeingCooked.cookedSprite;
+        FitSpriteToContainer(foodSprite);
+        cookingStartTime = -1;
+        isCooking = false;
+    }
+
+    public void RemoveFood()
     {
         isCooking = false;
         foodSprite.sprite = null;
         machineOccupied = false;
+        foodBeingCooked = null;
+        cookingStartTime = -1;
     }
 }
