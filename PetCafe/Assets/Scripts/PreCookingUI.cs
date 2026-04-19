@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-public class CookingUI : MonoBehaviour
+public class PreCookingUI : MonoBehaviour
 {
     [SerializeField] private CanvasGroup canvasGroup;
     private Machine currentMachine;
@@ -13,12 +13,12 @@ public class CookingUI : MonoBehaviour
 
     void OnEnable()
     {
-        GameEvents.OnMachineSelected += Open;
+        //GameEvents.OnMachineSelected += Open;
     }
 
     void OnDisable()
     {
-        GameEvents.OnMachineSelected -= Open;
+        //GameEvents.OnMachineSelected -= Open;
     }
 
     public void Open(Machine machine)
