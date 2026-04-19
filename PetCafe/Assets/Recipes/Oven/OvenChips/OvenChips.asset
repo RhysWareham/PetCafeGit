@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: caf87d9b2a675614e838661f64c5ce7a, type: 3}
+  m_Name: OvenChips
+  m_EditorClassIdentifier: 
+  foodName: Oven Chips
+  icon: {fileID: -1832675671732389962, guid: 552b5d31cb2aa7d43a34af2e00f04ef9, type: 3}
+  cookingSprite: {fileID: 7046794864879130760, guid: 654e5ac3272c89f4a870710e601d08ad, type: 3}
+  cookedSprite: {fileID: -2638934167508023647, guid: 181f6d55a8587e24b89ec09638bd6cfa, type: 3}
+  category: 0
+  price: 200
+  cookTime: 60
+  xpReward: 15
+  requiredLevelToCook: 0
+  maxMeals: 50

@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: caf87d9b2a675614e838661f64c5ce7a, type: 3}
+  m_Name: Fries
+  m_EditorClassIdentifier: 
+  foodName: Fries
+  icon: {fileID: -1832675671732389962, guid: c0ae0a9bb8e2cdb4a9a85f308b95bcfd, type: 3}
+  cookingSprite: {fileID: -509855485674447649, guid: 286611993b21dc646aef0d32fa0b7923, type: 3}
+  cookedSprite: {fileID: -2638934167508023647, guid: c26c38917ae736b47a7e02c9dd26fe0d, type: 3}
+  category: 1
+  price: 100
+  cookTime: 30
+  xpReward: 5
+  requiredLevelToCook: 0
+  maxMeals: 10
