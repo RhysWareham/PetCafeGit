@@ -10,16 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: caf87d9b2a675614e838661f64c5ce7a, type: 3}
-  m_Name: Pizza
+  m_Name: Churros
   m_EditorClassIdentifier: 
-  foodName: Pizza
-  icon: {fileID: -3195928601639412439, guid: 6872203f5d719fe42819890747928607, type: 3}
-  cookingSprite: {fileID: 7220021529132627037, guid: c5fc0280fbba739468f99d0f1013f6a3, type: 3}
-  cookedSprite: {fileID: -2006747256586950114, guid: d774375fe4dba97409d72c0f0c134a6a, type: 3}
-  category: 0
-  price: 150
+  foodName: Onion Rings
+  icon: {fileID: 4962134115720592350, guid: fe4fca5ccadfb4243be6c110dd4e60fe, type: 3}
+  cookingSprite: {fileID: 7815241608031840773, guid: ef9ad79856ed1d5408552af2ea042c95, type: 3}
+  cookedSprite: {fileID: -7848498098790597171, guid: c6240fb9a4d791a4397354c3e56c405d, type: 3}
+  category: 1
+  price: 50
   cookTime: 15
-  xpReward: 10
-  requiredLevelToCook: 0
-  maxMeals: 50
+  xpReward: 5
+  requiredLevelToCook: 1
+  maxMeals: 20
   profitPerMeal: 4

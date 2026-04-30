@@ -10,16 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: caf87d9b2a675614e838661f64c5ce7a, type: 3}
-  m_Name: Fries
+  m_Name: OnionRings
   m_EditorClassIdentifier: 
-  foodName: Fries
-  icon: {fileID: -1832675671732389962, guid: c0ae0a9bb8e2cdb4a9a85f308b95bcfd, type: 3}
-  cookingSprite: {fileID: -509855485674447649, guid: 286611993b21dc646aef0d32fa0b7923, type: 3}
-  cookedSprite: {fileID: -2638934167508023647, guid: c26c38917ae736b47a7e02c9dd26fe0d, type: 3}
+  foodName: Onion Rings
+  icon: {fileID: -1371443861623708475, guid: c320c8894ba60fb44abf15f1bfdd010f, type: 3}
+  cookingSprite: {fileID: 8275675678894297348, guid: b78d0dbcbecc7174b88c50a48f8c0a4e, type: 3}
+  cookedSprite: {fileID: -1168881858068685683, guid: f797a6324f352f44780915c0d734122a, type: 3}
   category: 1
   price: 100
-  cookTime: 30
-  xpReward: 5
-  requiredLevelToCook: 0
+  cookTime: 45
+  xpReward: 10
+  requiredLevelToCook: 2
   maxMeals: 10
-  profitPerMeal: 12
+  profitPerMeal: 11

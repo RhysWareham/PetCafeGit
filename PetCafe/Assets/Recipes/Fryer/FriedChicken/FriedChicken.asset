@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: caf87d9b2a675614e838661f64c5ce7a, type: 3}
+  m_Name: FriedChicken
+  m_EditorClassIdentifier: 
+  foodName: Fried Chicken
+  icon: {fileID: 1704419283786408651, guid: 372598e7b5f9b894bb50e49069e3909a, type: 3}
+  cookingSprite: {fileID: -819494679885341768, guid: 6bbb1ec1368f4b84386b3d09f7d8b4fc, type: 3}
+  cookedSprite: {fileID: 5654207437626741232, guid: 67c10bcb9807b064c9209c98f97a79f2, type: 3}
+  category: 1
+  price: 250
+  cookTime: 60
+  xpReward: 15
+  requiredLevelToCook: 2
+  maxMeals: 20
+  profitPerMeal: 18

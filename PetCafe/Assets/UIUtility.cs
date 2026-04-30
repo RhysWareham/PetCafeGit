@@ -21,4 +21,32 @@ public static class UIUtility
 
         return false;
     }
+
+    public static string WorkOutTimeInHMS(float rawTime)
+    {
+        int roundedTimeLeft = Mathf.RoundToInt(rawTime);
+
+        int h = roundedTimeLeft / 3600;
+        int m = (roundedTimeLeft % 3600) / 60;
+        int s = roundedTimeLeft % 60;
+
+        string result = "";
+
+        if (h > 0)
+        {
+            result = $"{h}h ";
+        }
+
+        if (m > 0)
+        {
+            result += $"{m}m "; 
+        }
+
+        if (s > 0 && h == 0)
+        {
+            result += $"{s}s ";
+        }
+
+        return result.TrimEnd();
+    }
 }
