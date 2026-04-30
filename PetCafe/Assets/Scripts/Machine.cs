@@ -3,7 +3,7 @@ using System.Collections;
 
 public class Machine : MonoBehaviour
 {
-    private bool isCooking = false;
+    public bool isCooking { get; private set; }
     public Categories.CookingCategory categoryCanCook;
     private bool machineOccupied = false;
     private float cookingStartTime = -1;
@@ -14,10 +14,12 @@ public class Machine : MonoBehaviour
     [SerializeField] private SpriteRenderer foodSprite;
 
     private Coroutine cookingCoroutine;
+    [SerializeField] private CookingProgressUI cookingProgressUI;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        isCooking = false;
     }
 
     // Update is called once per frame
@@ -59,7 +61,23 @@ public class Machine : MonoBehaviour
         foodSprite.sprite = recipe.cookingSprite;
         FitSpriteToContainer(foodSprite);
 
-        yield return new WaitForSecondsRealtime(recipe.cookTime);
+        float elapsed = 0f;
+        int cookTime = recipe.cookTime;
+
+        while (elapsed < cookTime)
+        {
+            elapsed += Time.deltaTime;
+
+            float progress = elapsed / cookTime;
+
+            // Only update if this machine is selected
+            if (MidCookingUI.Instance.CurrentMachine == this)
+            {
+                MidCookingUI.Instance.UpdateProgress(progress, cookTime - elapsed);
+            }
+
+            yield return null;
+        }
 
         FinishCookingFood();
     }
@@ -99,6 +117,12 @@ public class Machine : MonoBehaviour
 
     public void RemoveFood()
     {
+        if (cookingCoroutine != null)
+        {
+            StopCoroutine(cookingCoroutine);
+            cookingCoroutine = null;
+        }
+
         isCooking = false;
         foodSprite.sprite = null;
         machineOccupied = false;

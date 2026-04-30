@@ -9,6 +9,7 @@ public class MidCookingUI : MonoBehaviour
     [SerializeField] private CanvasGroup canvasGroup;
     private WorldToUIFollow uiFollowScript;
     public Machine currentMachine;
+    [SerializeField] private CookingProgressUI progressUI;
 
     public Machine CurrentMachine => currentMachine;
 
@@ -35,6 +36,20 @@ public class MidCookingUI : MonoBehaviour
         uiFollowScript.SetTarget(machine.gameObject.transform);
 
         ShowMenu();
+
+        if (machine.isCooking)
+        {
+            progressUI.Show();
+        }
+        else
+        {
+            progressUI.Hide();
+        }
+    }
+
+    public void UpdateProgress(float progress, float timeLeft)
+    {
+        progressUI.SetProgress(progress, timeLeft);
     }
 
     public void OnCancelPressed()
@@ -73,6 +88,8 @@ public class MidCookingUI : MonoBehaviour
         canvasGroup.alpha = 0;
         canvasGroup.interactable = false;
         canvasGroup.blocksRaycasts = false;
+
+        progressUI.Hide();
 
         currentMachine = null;
         uiFollowScript.ClearTarget();
