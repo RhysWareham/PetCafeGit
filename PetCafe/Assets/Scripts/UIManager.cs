@@ -8,6 +8,10 @@ public class UIManager : MonoBehaviour
     [SerializeField] private MidCookingUI midCookingMenu;
     [SerializeField] private PostCookingUI postCookingMenu;
 
+    public Machine currentMachine;
+
+    public Machine CurrentMachine => currentMachine;
+
     void Awake()
     {
         Instance = this;
@@ -15,6 +19,8 @@ public class UIManager : MonoBehaviour
 
     public void OpenRecipeMenu(Machine machine)
     {
+        currentMachine = machine;
+
         CloseAll();
 
         recipeMenu.Open(machine);
@@ -22,6 +28,8 @@ public class UIManager : MonoBehaviour
 
     public void OpenMidCookingMenu(Machine machine)
     {
+        currentMachine = machine;
+
         CloseAll();
 
         midCookingMenu.Open(machine);
@@ -29,6 +37,8 @@ public class UIManager : MonoBehaviour
 
     public void OpenPostCookingMenu(Machine machine)
     {
+        currentMachine = machine;
+
         CloseAll();
 
         postCookingMenu.Open(machine);

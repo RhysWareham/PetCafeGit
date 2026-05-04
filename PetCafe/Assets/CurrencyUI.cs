@@ -15,8 +15,14 @@ public class CurrencyUI : MonoBehaviour
 
     private Vector3 originalScale;
 
-    void OnEnable()
+    private void Start()
     {
+        if (CurrencyManager.Instance == null)
+        {
+            Debug.LogError("CurrencyManager missing!");
+            return;
+        }
+
         CurrencyManager.Instance.OnMoneyChanged += OnMoneyChanged;
 
         displayedAmount = CurrencyManager.Instance.CurrentMoney;
@@ -27,9 +33,12 @@ public class CurrencyUI : MonoBehaviour
         UpdateText((int)displayedAmount);
     }
 
-    void OnDisable()
+    void OnDestroy()
     {
-        CurrencyManager.Instance.OnMoneyChanged -= OnMoneyChanged;
+        if (CurrencyManager.Instance != null)
+        {
+            CurrencyManager.Instance.OnMoneyChanged -= OnMoneyChanged;
+        }
     }
 
     void OnMoneyChanged(int newAmount)

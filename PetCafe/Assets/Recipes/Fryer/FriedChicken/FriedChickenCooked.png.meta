@@ -134,7 +134,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      FriedChickenCooked_0: 5654207437626741232
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

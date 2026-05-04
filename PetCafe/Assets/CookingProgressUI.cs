@@ -7,9 +7,9 @@ public class CookingProgressUI : MonoBehaviour
     [SerializeField] private Image fillImage;
     [SerializeField] private TextMeshProUGUI timeText;
 
-    public void SetProgress(float t, float timeLeft)
+    public void SetProgress(float progress, float timeLeft)
     {
-        fillImage.fillAmount = t;
+        fillImage.fillAmount = progress;
 
         timeText.text = UIUtility.WorkOutTimeInHMS(timeLeft);
     }

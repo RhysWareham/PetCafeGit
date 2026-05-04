@@ -134,7 +134,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      OnionRingsIcon_0: -1371443861623708475
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

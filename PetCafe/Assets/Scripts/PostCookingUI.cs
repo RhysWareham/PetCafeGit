@@ -53,7 +53,7 @@ public class PostCookingUI : MonoBehaviour
         //Select a counter to move the food to
         if (currentMachine != null)
         {
-            currentMachine.RemoveFood();
+            currentMachine.OnMoveToCounter();
             Debug.Log("Food has been moved to table");
         }
 
