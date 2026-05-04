@@ -5,7 +5,7 @@ public class CurrencyManager : MonoBehaviour
 {
     public static CurrencyManager Instance { get; private set; }
 
-    public int CurrentMoney { get; private set; }
+    public int CurrentMoney { get; private set; } = 500;
 
     public event Action<int> OnMoneyChanged;
 
@@ -19,7 +19,7 @@ public class CurrencyManager : MonoBehaviour
 
         Instance = this;
 
-        CurrentMoney = 500;
+        Debug.Log(Instance);
     }
 
     public void AddMoney(int amount)

@@ -134,7 +134,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      CheeseSticksCooked_0: -1891736074211646853
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

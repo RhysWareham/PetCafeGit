@@ -134,7 +134,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      ChurrosIcon_0: 4962134115720592350
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

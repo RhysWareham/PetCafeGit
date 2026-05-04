@@ -134,7 +134,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      ChurrosCooked_0: -7848498098790597171
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

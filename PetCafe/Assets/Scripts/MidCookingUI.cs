@@ -73,7 +73,7 @@ public class MidCookingUI : MonoBehaviour
         }
 
         //Change menu to post cooking ui
-        UIManager.Instance.OpenPostCookingMenu(currentMachine);
+        //UIManager.Instance.OpenPostCookingMenu(currentMachine);
     }
 
     public void ShowMenu()

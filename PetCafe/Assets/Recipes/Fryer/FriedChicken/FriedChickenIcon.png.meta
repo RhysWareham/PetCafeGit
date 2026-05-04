@@ -134,7 +134,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      FriedChickenIcon_0: 1704419283786408651
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

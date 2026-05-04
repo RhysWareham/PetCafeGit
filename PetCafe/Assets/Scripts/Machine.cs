@@ -109,10 +109,23 @@ public class Machine : MonoBehaviour
             cookingCoroutine = null;
         }
 
+        // Only update if this machine is selected
+        if (UIManager.Instance.CurrentMachine == this)
+        {
+            UIManager.Instance.OpenPostCookingMenu(this);
+        }
+
         foodSprite.sprite = foodBeingCooked.cookedSprite;
         FitSpriteToContainer(foodSprite);
         cookingStartTime = -1;
         isCooking = false;
+    }
+
+    public void OnMoveToCounter()
+    {
+        ExperienceManager.Instance.AddXP(foodBeingCooked.xpReward);
+
+        RemoveFood();
     }
 
     public void RemoveFood()
