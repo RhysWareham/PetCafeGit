@@ -1601,7 +1601,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3849419938986620474, guid: 197adafd51a0ccc448470798fc3d5e42, type: 3}
       propertyPath: flashDuration
-      value: 0.4
+      value: 0.3
       objectReference: {fileID: 0}
     - target: {fileID: 3849419938986620474, guid: 197adafd51a0ccc448470798fc3d5e42, type: 3}
       propertyPath: animationDuration

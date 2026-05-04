@@ -1,40 +1,43 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using System.Collections;
 
 public class XPBarUI : MonoBehaviour
 {
+    [Header("UI")]
     [SerializeField] private Image fillImage;
     [SerializeField] private TextMeshProUGUI levelText;
 
     [Header("Animation")]
-    [SerializeField] private float animationDuration = 0.5f;
-    private float animationTimer;
-    private float startFill;
-    private bool isAnimating;
+    [SerializeField] private float animationDuration = 0.4f;
+    [SerializeField] private float immediateFillSpeedMultiplier = 0.6f;
+    [SerializeField] private float easePower = 2f;
 
     [Header("Level Up Flash")]
-    [SerializeField] private Image flashImage; // full bar overlay (white image)
+    [SerializeField] private Image flashImage;
     [SerializeField] private float flashDuration = 0.3f;
 
-    private float displayedFill;
-    private float targetFill;
-
     private int currentLevel;
+    private int pendingLevel;
+    private int pendingXP;
+    private int pendingXPToNext;
 
-    private float flashTimer;
-    private bool isFlashing;
 
+    private Coroutine animationRoutine;
 
     void Start()
     {
-        var xpManager = ExperienceManager.Instance;
+        var xp = ExperienceManager.Instance;
 
-        currentLevel = xpManager.CurrentLevel;
+        currentLevel = xp.CurrentLevel;
 
-        UpdateUI(xpManager.CurrentXP, GetXPRequired(), currentLevel);
+        float fill = (float)xp.CurrentXP / GetXPRequired();
+        fillImage.fillAmount = fill;
 
-        xpManager.OnXPChanged += OnXPChanged;
+        levelText.text = $"Lv {currentLevel}";
+
+        xp.OnXPChanged += OnXPChanged;
     }
 
     void OnDestroy()
@@ -47,103 +50,90 @@ public class XPBarUI : MonoBehaviour
 
     void OnXPChanged(int currentXP, int xpToNext, int level)
     {
-        float newFill = (float)currentXP / xpToNext;
+        pendingLevel = level;
+        pendingXP = currentXP;
+        pendingXPToNext = xpToNext;
 
-        // 🎉 Level up detected
-        if (level > currentLevel)
+        if (animationRoutine == null)
         {
-            currentLevel = level;
-
-            TriggerFlash();
-
-            // reset bar visually for new level
-            displayedFill = 0f;
-            fillImage.fillAmount = 0f;
-
-            startFill = 0f;
+            animationRoutine = StartCoroutine(AnimateXP());
         }
-        else
-        {
-            startFill = displayedFill;
-        }
-
-        targetFill = newFill;
-
-        animationTimer = 0f;
-        isAnimating = true;
-
-        levelText.text = $"Lv {level}";
     }
 
-    void Update()
+    IEnumerator AnimateXP()
     {
-        if (isAnimating)
+        while (currentLevel < pendingLevel)
         {
-            animationTimer += Time.deltaTime;
+            yield return AnimateFill(fillImage.fillAmount, 1f, false);
 
-            float t = animationTimer / animationDuration;
 
-            if (t >= 1f)
-            {
-                t = 1f;
-                isAnimating = false;
-            }
+            StartCoroutine(LevelUpStep(++currentLevel));
 
-            // ⭐ Ease-out
-            t = 1f - Mathf.Pow(1f - t, 3f);
-
-            displayedFill = Mathf.Lerp(startFill, targetFill, t);
-            fillImage.fillAmount = displayedFill;
+            fillImage.fillAmount = 0f;
         }
 
+        // Final partial fill
+        float finalFill = (float)pendingXP / pendingXPToNext;
 
-        if (isFlashing)
+        if (Mathf.Abs(fillImage.fillAmount - finalFill) > 0.001f)
         {
-            flashTimer += Time.deltaTime;
+            yield return AnimateFill(fillImage.fillAmount, finalFill, true);
+        }
 
-            float t = flashTimer / flashDuration;
+        animationRoutine = null;
+    }
 
-            // fade out
+    IEnumerator AnimateFill(float start, float end, bool useEase)
+    {
+        float timer = 0f;
+        float duration = useEase ? animationDuration : animationDuration * immediateFillSpeedMultiplier;
+
+        while (timer < duration)
+        {
+            timer += Time.deltaTime;
+
+            float t = timer / duration;
+
+            if (useEase)
+            {
+                t = 1f - Mathf.Pow(1f - t, easePower);
+            }
+
+            float value = Mathf.Lerp(start, end, t);
+            fillImage.fillAmount = value;
+
+            yield return null;
+        }
+
+        fillImage.fillAmount = end;
+    }
+
+
+    IEnumerator LevelUpStep(int newLevel)
+    {
+        levelText.text = $"Lv {newLevel}";
+
+        flashImage.gameObject.SetActive(true);
+
+        float timer = 0f;
+
+        while (timer < flashDuration)
+        {
+            timer += Time.deltaTime;
+
+            float t = timer / flashDuration;
+
             Color c = flashImage.color;
             c.a = 1f - t;
             flashImage.color = c;
 
-            if (t >= 1f)
-            {
-                isFlashing = false;
-                flashImage.gameObject.SetActive(false);
-            }
+            yield return null;
         }
+
+        flashImage.gameObject.SetActive(false);
+
+        yield return new WaitForSeconds(0.05f);
     }
-
-    void UpdateUI(int currentXP, int xpToNext, int level)
-    {
-        float fill = (float)currentXP / xpToNext;
-
-        displayedFill = fill;
-        targetFill = fill;
-        startFill = fill;
-
-        fillImage.fillAmount = fill;
-        levelText.text = $"Lv {level}";
-
-
-    }
-
-    void TriggerFlash()
-    {
-        flashImage.gameObject.SetActive(true);
-
-        flashTimer = 0f;
-        isFlashing = true;
-
-        Color c = flashImage.color;
-        c.a = 1f;
-        flashImage.color = c;
-
-        //Play level up sound
-    }
-
 
     int GetXPRequired()
     {
