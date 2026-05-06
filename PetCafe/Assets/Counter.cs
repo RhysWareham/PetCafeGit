@@ -1,17 +1,27 @@
+using System.Collections;
 using UnityEngine;
 
-public class Counter : MonoBehaviour
+public class Counter : Workstation
 {
     public bool counterOccupied { get; private set; }
-    private int numOfMealsLeft = 0;
+    private int mealsRemaining = 0;
+    private bool isDirty;
 
     private FoodRecipe foodOnCounter;
+    [SerializeField] private int cleanCounterXP = 10;
     [SerializeField] private float maxWidth = 1.5f;
     [SerializeField] private float maxHeight = 1.0f;
     [SerializeField] private SpriteRenderer foodSprite;
-    [SerializeField] private GameObject highlight;
+    [SerializeField] private SpriteRenderer counterSprite;
+    [SerializeField] private GameObject cleanHighlight;
+    [SerializeField] private GameObject dirtyHighlight;
+    private bool isHighlighting = false;
+
+    private Coroutine sellingCoroutine;
 
     public bool IsOccupied => counterOccupied;
+    public bool IsDirty => isDirty;
+    public int MealsRemaining => mealsRemaining;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -29,16 +39,34 @@ public class Counter : MonoBehaviour
     {
         if (!counterOccupied)
         {
-            highlight.SetActive(turnOn);
+            isHighlighting = turnOn;
+
+            if (isDirty)
+            {
+                dirtyHighlight.SetActive(turnOn);
+            }
+            else
+            {
+                cleanHighlight.SetActive(turnOn);
+            }
         }
         else if (!turnOn)
         {
-            highlight.SetActive(turnOn);
+            isHighlighting = turnOn;
+
+            dirtyHighlight.SetActive(turnOn);
+            cleanHighlight.SetActive(turnOn);
         }
     }
 
     public void Interact()
     {
+        if (isDirty)
+        {
+            CleanCounter();
+            return;
+        }
+
         if (MoveManager.Instance.IsMoving)
         {
             MoveManager.Instance.CompleteMove(this);
@@ -56,9 +84,81 @@ public class Counter : MonoBehaviour
         foodOnCounter = recipe;
         counterOccupied = true;
 
+        mealsRemaining = recipe.maxMeals;
+        isDirty = false;
+
         foodSprite.sprite = recipe.cookedSprite;
         FitSpriteToContainer(foodSprite);
-        highlight.SetActive(false);
+        cleanHighlight.SetActive(false);
+
+        StartSelling();
+    }
+
+    private void StartSelling()
+    {
+        if (sellingCoroutine != null)
+        {
+            StopCoroutine(sellingCoroutine);
+        }
+
+        sellingCoroutine = StartCoroutine(SellMeals());
+    }
+
+    private IEnumerator SellMeals()
+    {
+        while (mealsRemaining > 0)
+        {
+            float waitTime = Random.Range(2f, 4f);
+            yield return new WaitForSeconds(waitTime);
+
+            mealsRemaining--;
+
+            CurrencyManager.Instance.AddMoney(foodOnCounter.profitPerMeal);
+
+            SaleValueManager.Instance.SpawnFloatingText(foodOnCounter.profitPerMeal, this);
+        }
+
+        RemoveFood();
+    }
+
+    public void BecomeDirty()
+    {
+        isDirty = true;
+
+        SetDirtyVisual(true);
+    }
+
+    public void CleanCounter()
+    {
+        isDirty = false;
+
+        if (isHighlighting)
+        {
+            dirtyHighlight.SetActive(false);
+            cleanHighlight.SetActive(true);
+        }
+        else
+        {
+            dirtyHighlight.SetActive(false);
+        }
+
+        SetDirtyVisual(false);
+
+        ExperienceManager.Instance.AddXP(cleanCounterXP);
+        XPValueManager.Instance.SpawnFloatingText(cleanCounterXP, this);
+
+    }
+
+    private void SetDirtyVisual(bool dirty)
+    {
+        if (dirty)
+        {
+            counterSprite.color = new Color(1f, 0.5f, 0f); //Orange
+        }
+        else
+        {
+            counterSprite.color = Color.white;
+        }
     }
 
     void FitSpriteToContainer(SpriteRenderer sr)
@@ -82,9 +182,17 @@ public class Counter : MonoBehaviour
 
     public void RemoveFood()
     {
+        if (sellingCoroutine != null)
+        {
+            StopCoroutine(sellingCoroutine);
+            sellingCoroutine = null;
+        }
+
+        BecomeDirty();
+
         foodSprite.sprite = null;
         counterOccupied = false;
         foodOnCounter = null;
-        numOfMealsLeft = 0;
+        mealsRemaining = 0;
     }
 }
