@@ -17,6 +17,20 @@ public class TouchManager : MonoBehaviour
             ? hit.collider.GetComponent<Machine>()
             : null;
 
+        Counter clickedCounter = hit.collider
+            ? hit.collider.GetComponent<Counter>()
+            : null;
+
+        if (MoveManager.Instance.IsMoving)
+        {
+            // only counters should respond
+            if (clickedCounter == null)
+            {
+                MoveManager.Instance.ExitMoveMode();
+            }
+            //return;
+        }
+
         // If on UI, don't change anything
         if (isOverUI)
         {
@@ -24,17 +38,25 @@ public class TouchManager : MonoBehaviour
         }
 
         // If clicking an empty space, close menus
-        if (clickedMachine == null)
+        if (clickedMachine == null && clickedCounter == null)
         {
             UIManager.Instance.CloseAll();
             return;
         }
 
         // If clicking a current machine, do nothing
-        if (clickedMachine == UIManager.Instance.CurrentMachine)
+        if ((clickedMachine != null && clickedMachine == UIManager.Instance.CurrentMachine) || 
+            (clickedCounter != null && clickedCounter == UIManager.Instance.currentCounter))
             return;
 
         // If clicking a new machine
-        clickedMachine.Interact();
+        if (clickedMachine != null)
+        {
+            clickedMachine.Interact();
+        }
+        else if (clickedCounter != null)
+        {
+            clickedCounter.Interact();
+        }
     }
 }

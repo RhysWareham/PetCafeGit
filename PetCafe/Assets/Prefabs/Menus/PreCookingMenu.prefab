@@ -383,6 +383,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   canvasGroup: {fileID: 5311191044496049078}
+  panel: {fileID: 8363758517699199664}
+  animTime: 0.2
   database: {fileID: 11400000, guid: c44012a16d0c6ce418acd553289193f7, type: 2}
   contentHolder: {fileID: 4305761348327855121}
   MenuItemGO: {fileID: 4759031151880513827, guid: 180d5f9f40f0d554ba79589fae8fda06, type: 3}

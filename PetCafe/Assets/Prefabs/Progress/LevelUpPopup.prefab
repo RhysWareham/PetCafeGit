@@ -270,6 +270,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   canvasGroup: {fileID: 7687004348848262592}
+  panel: {fileID: 2066849009071470016}
+  animTime: 0.2
   levelUnlockedTitle: {fileID: 6456226315648689177}
   itemPrefab: {fileID: 4315037583136379064, guid: 2234f0c2f4f01e341becd4ce97dcbc4c, type: 3}
   contentHolder: {fileID: 8492399996998543983}
