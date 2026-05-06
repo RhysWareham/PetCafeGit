@@ -8,9 +8,6 @@ public class UnlockManager : MonoBehaviour
 
     [SerializeField] private RecipeDatabase recipeDatabase;
 
-    public event Action<int, int> OnLevelsGained;
-    // (fromLevel, toLevel)
-
     private void Awake()
     {
         if (Instance != null)
@@ -19,16 +16,6 @@ public class UnlockManager : MonoBehaviour
         }
 
         Instance = this;
-    }
-
-    void Start()
-    {
-        OnLevelsGained += HandleLevelUps;
-    }
-
-    void OnDestroy()
-    {
-        OnLevelsGained -= HandleLevelUps;
     }
 
     public void HandleLevelUps(int fromLevel, int toLevel)
