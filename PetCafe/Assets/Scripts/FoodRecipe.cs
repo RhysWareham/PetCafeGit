@@ -8,11 +8,13 @@ public class FoodRecipe : ScriptableObject
     public Sprite cookingSprite;
     public Sprite cookedSprite;
 
-    public Categories.CookingCategory category;
+    public Categories.MachineType category;
     public int price;
     public int cookTime;
     public int xpReward;
     public int requiredLevelToCook;
     public int maxMeals;
     public int profitPerMeal;
+
+    public int UnlockLevel => requiredLevelToCook;
 }
