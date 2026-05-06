@@ -1244,6 +1244,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 187624692}
     m_Modifications:
+    - target: {fileID: 2026757488020440200, guid: dafe9faed7a94c54a9d2668a83582699, type: 3}
+      propertyPath: panel
+      value: 
+      objectReference: {fileID: 148142879}
     - target: {fileID: 4305761348327855121, guid: dafe9faed7a94c54a9d2668a83582699, type: 3}
       propertyPath: m_SizeDelta.x
       value: 0
@@ -1637,6 +1641,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2776808852741107101, guid: 082a3e2ab856cfd45ad9a193af37fcc7, type: 3}
+      propertyPath: panel
+      value: 
+      objectReference: {fileID: 5499202734461915251}
     - target: {fileID: 4998734972347270220, guid: 082a3e2ab856cfd45ad9a193af37fcc7, type: 3}
       propertyPath: m_Name
       value: LevelUpPopup
