@@ -4,7 +4,7 @@ using System.Collections;
 public class Machine : MonoBehaviour
 {
     public bool isCooking { get; private set; }
-    public Categories.CookingCategory categoryCanCook;
+    public Categories.MachineType machineType;
     private bool machineOccupied = false;
     private float cookingStartTime = -1;
 

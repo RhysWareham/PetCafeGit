@@ -9,9 +9,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2893139b91d934a45abfa577c7410ef8, type: 3}
-  m_Name: RecipeDatabase
+  m_Script: {fileID: 11500000, guid: 9028fb662d40b7740a4071468b9c8bf7, type: 3}
+  m_Name: Oven
   m_EditorClassIdentifier: 
-  allMachines:
-  - {fileID: 11400000, guid: babd6dd20aefdb84da0f917a6c3bbf19, type: 2}
-  - {fileID: 11400000, guid: 383c4835f39a4cd48867770b0c3164bc, type: 2}
+  categoryName: 0
+  recipes:
+  - {fileID: 11400000, guid: da69bedb674d32b489c7e75eca4d8fb2, type: 2}
+  - {fileID: 11400000, guid: ceb584756b4b426429dc29a529d03b22, type: 2}
+  initialUnlockLevel: 1

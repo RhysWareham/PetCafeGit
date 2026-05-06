@@ -25,7 +25,7 @@ public class PreCookingUI : MonoBehaviour
     {
         currentMachine = machine;
 
-        var validRecipes = database.allRecipes.Where(recipe => recipe.category == machine.categoryCanCook).ToList();
+        var validRecipes = database.GetRecipesForCategory(machine.machineType);
 
         for (int i = 0; i < validRecipes.Count; i++)
         {

@@ -5,6 +5,8 @@ using System.Collections;
 
 public class XPBarUI : MonoBehaviour
 {
+    [SerializeField] private RecipeDatabase recipeDatabase;
+
     [Header("UI")]
     [SerializeField] private Image fillImage;
     [SerializeField] private TextMeshProUGUI levelText;
@@ -18,6 +20,7 @@ public class XPBarUI : MonoBehaviour
     [SerializeField] private Image flashImage;
     [SerializeField] private float flashDuration = 0.3f;
 
+    private int levelBeforeXP;
     private int currentLevel;
     private int pendingLevel;
     private int pendingXP;
@@ -56,6 +59,7 @@ public class XPBarUI : MonoBehaviour
 
         if (animationRoutine == null)
         {
+            levelBeforeXP = currentLevel;
             animationRoutine = StartCoroutine(AnimateXP());
         }
     }
@@ -79,6 +83,8 @@ public class XPBarUI : MonoBehaviour
         {
             yield return AnimateFill(fillImage.fillAmount, finalFill, true);
         }
+
+        UnlockManager.Instance.HandleLevelUps(levelBeforeXP, pendingLevel);
 
         animationRoutine = null;
     }

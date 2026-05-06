@@ -2,7 +2,7 @@
 
 public static class Categories
 {
-    public enum CookingCategory
+    public enum MachineType
     {
         //FOOD
         OVEN,

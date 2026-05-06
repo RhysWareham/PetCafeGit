@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using System.Collections.Generic;
 
 public class ExperienceManager : MonoBehaviour
 {
@@ -11,6 +12,9 @@ public class ExperienceManager : MonoBehaviour
     public event Action<int, int, int> OnXPChanged;
     // (currentXP, xpToNextLevel, level)
 
+    private List<string> unlockedItemsBuffer = new();
+
+    [SerializeField] private RecipeDatabase recipeDatabase;
     [SerializeField] private int startingLevelMaxXP = 50;
     [SerializeField] private float maxXPNextLevelMultiplier = 1.2f;
 
@@ -43,6 +47,14 @@ public class ExperienceManager : MonoBehaviour
         CurrentLevel++;
         Debug.Log($"Level Up! Now level {CurrentLevel}");
     }
+
+    public List<string> ConsumeUnlocks()
+    {
+        List<string> copy = new(unlockedItemsBuffer);
+        unlockedItemsBuffer.Clear();
+        return copy;
+    }
+
 
     private int GetXPToNextLevel()
     {
