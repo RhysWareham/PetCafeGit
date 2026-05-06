@@ -127,11 +127,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 121291b60704d9f4393ff70ce5aa2945, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  recipeDatabase: {fileID: 11400000, guid: c44012a16d0c6ce418acd553289193f7, type: 2}
   fillImage: {fileID: 4230987324989914461}
   levelText: {fileID: 8488597438164364668}
-  animationSpeed: 1.5
+  animationDuration: 0.5
+  immediateFillSpeedMultiplier: 0.6
+  easePower: 2
   flashImage: {fileID: 7812411584969577128}
-  flashDuration: 0.6
+  flashDuration: 0.3
 --- !u!1 &2703590747525223617
 GameObject:
   m_ObjectHideFlags: 0

@@ -7,10 +7,13 @@ public class UIManager : MonoBehaviour
     [SerializeField] private PreCookingUI recipeMenu;
     [SerializeField] private MidCookingUI midCookingMenu;
     [SerializeField] private PostCookingUI postCookingMenu;
+    [SerializeField] private CounterUI counterMenu;
 
     public Machine currentMachine;
+    public Counter currentCounter;
 
     public Machine CurrentMachine => currentMachine;
+    public Counter CurrentCounter => currentCounter;
 
     void Awake()
     {
@@ -41,12 +44,22 @@ public class UIManager : MonoBehaviour
         postCookingMenu.Open(machine);
     }
 
+    public void OpenCounterMenu(Counter counter)
+    {
+        CloseAll();
+
+        currentCounter = counter;
+        counterMenu.Open(counter);
+    }
+
     public void CloseAll()
     {
         currentMachine = null;
+        currentCounter = null;
 
         recipeMenu.HideMenu();
         midCookingMenu.HideMenu();
         postCookingMenu.HideMenu();
+        counterMenu.HideMenu();
     }
 }

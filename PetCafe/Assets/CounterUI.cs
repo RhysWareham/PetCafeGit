@@ -1,16 +1,14 @@
-﻿using UnityEngine;
-using System.Collections.Generic;
-using System.Linq;
+using UnityEngine;
 
-public class PostCookingUI : MonoBehaviour
+public class CounterUI : MonoBehaviour
 {
-    public static PostCookingUI Instance { get; private set; }
+    public static CounterUI Instance { get; private set; }
 
     [SerializeField] private CanvasGroup canvasGroup;
     private WorldToUIFollow uiFollowScript;
-    public Machine currentMachine;
+    public Counter currentCounter;
 
-    public Machine CurrentMachine => currentMachine;
+    public Counter CurrentCounter => currentCounter;
 
     void Awake()
     {
@@ -28,11 +26,11 @@ public class PostCookingUI : MonoBehaviour
         uiFollowScript = this.GetComponent<WorldToUIFollow>();
     }
 
-    public void Open(Machine machine)
+    public void Open(Counter counter)
     {
-        currentMachine = machine;
+        currentCounter = counter;
 
-        uiFollowScript.SetTarget(machine.gameObject.transform);
+        uiFollowScript.SetTarget(counter.gameObject.transform);
 
         ShowMenu();
     }
@@ -40,21 +38,9 @@ public class PostCookingUI : MonoBehaviour
     public void OnDeletePressed()
     {
         //Open "are you sure" menu first
-        if (currentMachine != null)
+        if (currentCounter != null)
         {
-            currentMachine.RemoveFood();
-        }
-
-        UIManager.Instance.CloseAll();
-    }
-
-    public void OnMovePressed()
-    {
-        //Select a counter to move the food to
-        if (currentMachine != null)
-        {
-            MoveManager.Instance.StartMove(currentMachine);
-            Debug.Log("Food has been moved to table");
+            currentCounter.RemoveFood();
         }
 
         UIManager.Instance.CloseAll();
@@ -73,7 +59,7 @@ public class PostCookingUI : MonoBehaviour
         canvasGroup.interactable = false;
         canvasGroup.blocksRaycasts = false;
 
-        currentMachine = null;
+        currentCounter = null;
         uiFollowScript.ClearTarget();
     }
 }

@@ -28,6 +28,11 @@ public class Machine : MonoBehaviour
         
     }
 
+    public FoodRecipe GetFood()
+    {
+        return foodBeingCooked;
+    }
+
     public void Interact()
     {
         GameEvents.OnMachineTapped?.Invoke(this);
@@ -121,7 +126,7 @@ public class Machine : MonoBehaviour
         isCooking = false;
     }
 
-    public void OnMoveToCounter()
+    public void OnMoveToCounterComplete()
     {
         ExperienceManager.Instance.AddXP(foodBeingCooked.xpReward);
 
