@@ -18,8 +18,8 @@ MonoBehaviour:
   cookedSprite: {fileID: -2638934167508023647, guid: c26c38917ae736b47a7e02c9dd26fe0d, type: 3}
   category: 1
   price: 100
-  cookTime: 30
-  xpReward: 10
-  requiredLevelToCook: 0
+  cookTime: 10
+  xpReward: 100
+  requiredLevelToCook: 1
   maxMeals: 10
   profitPerMeal: 12

@@ -11,8 +11,11 @@ public class MenuItem : MonoBehaviour
     private TextMeshProUGUI itemName;
     [SerializeField] private TextMeshProUGUI price;
     [SerializeField] private TextMeshProUGUI timeToCook;
+    [SerializeField] private GameObject lockedSprite;
+    [SerializeField] private TextMeshProUGUI unlockAtLevel;
+    [SerializeField] private Button button;
 
-    public void SetupMenuItem(PreCookingUI _cookingUI, FoodRecipe recipe, Transform startPos, int offset)
+    public void SetupMenuItem(PreCookingUI _cookingUI, FoodRecipe recipe, int currentLevel)
     {
         cookingUI = _cookingUI;
         foodSprite.sprite = recipe.icon;
@@ -24,7 +27,13 @@ public class MenuItem : MonoBehaviour
             price.color = Color.red;
             timeToCook.color = Color.red;
         }
-        this.transform.position = new Vector2(startPos.position.x + (offset * menuOffset), startPos.position.y);
+
+        if (currentLevel < recipe.UnlockLevel)
+        {
+            lockedSprite.SetActive(true);
+            unlockAtLevel.text = $"UNLOCKS AT\nLV {recipe.UnlockLevel}";
+            button.enabled = false;
+        }
     }
 
     public void RecipeSelected()
