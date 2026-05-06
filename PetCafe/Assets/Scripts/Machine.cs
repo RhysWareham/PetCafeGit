@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections;
 
-public class Machine : MonoBehaviour
+public class Machine : Workstation
 {
     public bool isCooking { get; private set; }
     public Categories.MachineType machineType;
@@ -129,6 +129,7 @@ public class Machine : MonoBehaviour
     public void OnMoveToCounterComplete()
     {
         ExperienceManager.Instance.AddXP(foodBeingCooked.xpReward);
+        XPValueManager.Instance.SpawnFloatingText(foodBeingCooked.xpReward, this);
 
         RemoveFood();
     }
