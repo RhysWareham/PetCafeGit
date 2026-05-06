@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8492399996998543983}
   - component: {fileID: 7996033182334515793}
+  - component: {fileID: 1077526262704823696}
   m_Layer: 5
   m_Name: ContentParent
   m_TagString: Untagged
@@ -60,6 +61,20 @@ MonoBehaviour:
   m_Spacing: {x: 20, y: 20}
   m_Constraint: 1
   m_ConstraintCount: 6
+--- !u!114 &1077526262704823696
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1437026499489642081}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3245ec927659c4140ac4f8d17403cc18, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_HorizontalFit: 0
+  m_VerticalFit: 1
 --- !u!1 &2119153868346582453
 GameObject:
   m_ObjectHideFlags: 0
@@ -258,6 +273,7 @@ MonoBehaviour:
   levelUnlockedTitle: {fileID: 6456226315648689177}
   itemPrefab: {fileID: 4315037583136379064, guid: 2234f0c2f4f01e341becd4ce97dcbc4c, type: 3}
   contentHolder: {fileID: 8492399996998543983}
+  contentScrollerControl: {fileID: 2700354261235519048}
 --- !u!1 &8875517169839402175
 GameObject:
   m_ObjectHideFlags: 0
@@ -292,7 +308,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -21.10791, y: 296}
+  m_AnchoredPosition: {x: 0, y: 296}
   m_SizeDelta: {x: 1101.8872, y: 75}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4180321298354254457
@@ -406,6 +422,7 @@ GameObject:
   - component: {fileID: 3992454210299408210}
   - component: {fileID: 8256015252703899145}
   - component: {fileID: 4242324719195548140}
+  - component: {fileID: 2700354261235519048}
   m_Layer: 5
   m_Name: Unlocks
   m_TagString: Untagged
@@ -501,6 +518,22 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &2700354261235519048
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8881704848605775827}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 236e4cf68b8f8484eb6778bb1db13d72, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  scrollRect: {fileID: 4242324719195548140}
+  content: {fileID: 8492399996998543983}
+  viewport: {fileID: 8013225461890902809}
+  isHorizontal: 0
 --- !u!1001 &2934323088398953255
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -1,15 +1,18 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEngine.UI;
 
 public class PreCookingUI : MonoBehaviour
 {
     [SerializeField] private CanvasGroup canvasGroup;
     private Machine currentMachine;
     [SerializeField] private RecipeDatabase database;
-    [SerializeField] private Transform recipeStartPosition;
+    [SerializeField] private Transform contentHolder;
     private List<GameObject> menuItems = new List<GameObject>();
     [SerializeField] private GameObject MenuItemGO;
+    [SerializeField] private ContentScrollerControl contentScrollerControl;
+
 
     void OnEnable()
     {
@@ -26,13 +29,20 @@ public class PreCookingUI : MonoBehaviour
         currentMachine = machine;
 
         var validRecipes = database.GetRecipesForCategory(machine.machineType);
+        int currentLevel = ExperienceManager.Instance.CurrentLevel;
+
+        foreach (Transform child in contentHolder)
+            Destroy(child.gameObject);
 
         for (int i = 0; i < validRecipes.Count; i++)
         {
-            var menuItem = Instantiate(MenuItemGO, transform);
-            menuItem.GetComponent<MenuItem>().SetupMenuItem(this, validRecipes[i], recipeStartPosition, i);
+            var menuItem = Instantiate(MenuItemGO, contentHolder.transform);
+            menuItem.GetComponent<MenuItem>().SetupMenuItem(this, validRecipes[i], currentLevel);
             menuItems.Add(menuItem);
         }
+
+        LayoutRebuilder.ForceRebuildLayoutImmediate(contentHolder as RectTransform);
+        contentScrollerControl.UpdateScrollState();
 
         ShowMenu();
     }

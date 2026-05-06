@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.UI;
 
 public class UnlockPopupUI : MonoBehaviour
 {
@@ -10,6 +11,8 @@ public class UnlockPopupUI : MonoBehaviour
     [SerializeField] private TextMeshProUGUI levelUnlockedTitle;
     [SerializeField] private GameObject itemPrefab;
     [SerializeField] private Transform contentHolder;
+    [SerializeField] private ContentScrollerControl contentScrollerControl;
+
 
     void Awake()
     {
@@ -28,6 +31,9 @@ public class UnlockPopupUI : MonoBehaviour
             var go = Instantiate(itemPrefab, contentHolder.transform);
             go.GetComponent<UnlockedItemUI>().Setup(recipe);
         }
+
+        LayoutRebuilder.ForceRebuildLayoutImmediate(contentHolder as RectTransform);
+        contentScrollerControl.UpdateScrollState();
 
         ShowMenu();
     }
