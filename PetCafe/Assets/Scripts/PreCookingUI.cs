@@ -49,7 +49,7 @@ public class PreCookingUI : MonoBehaviour
 
     public void Close()
     {
-        HideMenu();
+        UIManager.Instance.CloseAll();
 
         foreach (GameObject obj in menuItems)
         {

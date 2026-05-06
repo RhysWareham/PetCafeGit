@@ -8,14 +8,8 @@ public class TouchManager : MonoBehaviour
         if (!Input.GetMouseButtonDown(0))
             return;
 
-        // 1. If clicking UI
-        if (UIUtility.IsPointerOverUIWithTag("MidCookingUI"))
-            return;
+        bool isOverUI = EventSystem.current.IsPointerOverGameObject();
 
-        MidCookingUI.Instance.HideMenu();
-        PostCookingUI.Instance.HideMenu();
-
-        // 2. World click
         Vector2 worldPoint = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         RaycastHit2D hit = Physics2D.Raycast(worldPoint, Vector2.zero);
 
@@ -23,14 +17,24 @@ public class TouchManager : MonoBehaviour
             ? hit.collider.GetComponent<Machine>()
             : null;
 
-        // 3. Same machine = do nothing
-        if (clickedMachine == MidCookingUI.Instance.CurrentMachine)
+        // If on UI, don't change anything
+        if (isOverUI)
+        {
+            return;
+        }
+
+        // If clicking an empty space, close menus
+        if (clickedMachine == null)
+        {
+            UIManager.Instance.CloseAll();
+            return;
+        }
+
+        // If clicking a current machine, do nothing
+        if (clickedMachine == UIManager.Instance.CurrentMachine)
             return;
 
-        // Optional: open new one immediately
-        if (clickedMachine != null)
-        {
-            clickedMachine.Interact();
-        }
+        // If clicking a new machine
+        clickedMachine.Interact();
     }
 }

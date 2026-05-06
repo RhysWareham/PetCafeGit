@@ -45,7 +45,7 @@ public class PostCookingUI : MonoBehaviour
             currentMachine.RemoveFood();
         }
 
-        HideMenu();
+        UIManager.Instance.CloseAll();
     }
 
     public void OnMovePressed()
@@ -57,8 +57,7 @@ public class PostCookingUI : MonoBehaviour
             Debug.Log("Food has been moved to table");
         }
 
-        HideMenu();
-
+        UIManager.Instance.CloseAll();
     }
 
     public void ShowMenu()

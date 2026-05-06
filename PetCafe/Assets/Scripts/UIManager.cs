@@ -19,33 +19,32 @@ public class UIManager : MonoBehaviour
 
     public void OpenRecipeMenu(Machine machine)
     {
-        currentMachine = machine;
-
         CloseAll();
 
+        currentMachine = machine;
         recipeMenu.Open(machine);
     }
 
     public void OpenMidCookingMenu(Machine machine)
     {
-        currentMachine = machine;
-
         CloseAll();
 
+        currentMachine = machine;
         midCookingMenu.Open(machine);
     }
 
     public void OpenPostCookingMenu(Machine machine)
     {
-        currentMachine = machine;
-
         CloseAll();
 
+        currentMachine = machine;
         postCookingMenu.Open(machine);
     }
 
     public void CloseAll()
     {
+        currentMachine = null;
+
         recipeMenu.HideMenu();
         midCookingMenu.HideMenu();
         postCookingMenu.HideMenu();

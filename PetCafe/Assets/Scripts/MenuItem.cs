@@ -7,7 +7,6 @@ public class MenuItem : MonoBehaviour
     [SerializeField] private Image foodSprite;
     private PreCookingUI cookingUI;
     private FoodRecipe currentRecipe;
-    private float menuOffset = 300;
     private TextMeshProUGUI itemName;
     [SerializeField] private TextMeshProUGUI price;
     [SerializeField] private TextMeshProUGUI timeToCook;
