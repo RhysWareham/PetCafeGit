@@ -17,11 +17,16 @@ public class Counter : Workstation
     [SerializeField] private GameObject dirtyHighlight;
     private bool isHighlighting = false;
 
+    [SerializeField] private Transform customerSalePoint;
+    [SerializeField] private bool isReserved;
+
     private Coroutine sellingCoroutine;
 
     public bool IsOccupied => counterOccupied;
     public bool IsDirty => isDirty;
     public int MealsRemaining => mealsRemaining;
+    public bool IsReserved => isReserved;
+    public Transform CustomerSalePoint => customerSalePoint;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -90,35 +95,23 @@ public class Counter : Workstation
         foodSprite.sprite = recipe.cookedSprite;
         FitSpriteToContainer(foodSprite);
         cleanHighlight.SetActive(false);
-
-        StartSelling();
     }
 
-    private void StartSelling()
+    public void SellMeal()
     {
-        if (sellingCoroutine != null)
+        if (mealsRemaining <= 0)
+            return;
+
+        mealsRemaining--;
+
+        CurrencyManager.Instance.AddMoney(foodOnCounter.profitPerMeal);
+
+        SaleValueManager.Instance.SpawnFloatingText(foodOnCounter.profitPerMeal, this);
+
+        if (mealsRemaining <= 0)
         {
-            StopCoroutine(sellingCoroutine);
+            RemoveFood();
         }
-
-        sellingCoroutine = StartCoroutine(SellMeals());
-    }
-
-    private IEnumerator SellMeals()
-    {
-        while (mealsRemaining > 0)
-        {
-            float waitTime = Random.Range(2f, 4f);
-            yield return new WaitForSeconds(waitTime);
-
-            mealsRemaining--;
-
-            CurrencyManager.Instance.AddMoney(foodOnCounter.profitPerMeal);
-
-            SaleValueManager.Instance.SpawnFloatingText(foodOnCounter.profitPerMeal, this);
-        }
-
-        RemoveFood();
     }
 
     public void BecomeDirty()
@@ -194,5 +187,21 @@ public class Counter : Workstation
         counterOccupied = false;
         foodOnCounter = null;
         mealsRemaining = 0;
+        isReserved = false;
     }
+
+    public void Reserve()
+    {
+        isReserved = true;
+    }
+
+    public void Unreserve()
+    {
+        isReserved = false;
+    }
+
+    public bool HasFoodAvailable =>
+        counterOccupied &&
+        mealsRemaining > 0 &&
+        !isReserved;
 }

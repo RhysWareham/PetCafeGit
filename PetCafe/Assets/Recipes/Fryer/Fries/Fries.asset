@@ -19,7 +19,7 @@ MonoBehaviour:
   category: 1
   price: 100
   cookTime: 10
-  xpReward: 100
+  xpReward: 30
   requiredLevelToCook: 1
   maxMeals: 10
   profitPerMeal: 12
