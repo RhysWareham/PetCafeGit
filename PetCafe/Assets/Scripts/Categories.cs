@@ -16,4 +16,15 @@ public static class Categories
         //DRINKS
         SODA_MACHINE
     }
+
+    public enum FurnitureType
+    {
+        FLOOR,
+        TABLES,
+        CHAIRS,
+        MACHINES,
+        DECORATIONS,
+        WALLPAPER,
+        WALL_DECOR
+    }
 }
